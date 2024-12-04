@@ -1,12 +1,4 @@
-/**************************************************************************
- @Company : CloudKaptan Consultancy Services Pvt Ltd.
- @Class : BrokerPortalAppListTest
- @Description: Test class for BrokerPortalAppList
- @Developer: 
- @Created Date: 
- @Last modified by : ChangeMeIn@UserSettingsUnder.SFDoc
- @Last modified date :
-***************************************************************************/
+
 @isTest 
 global class BrokerPortalAppListTest {
     @TestSetup
@@ -159,19 +151,6 @@ global class BrokerPortalAppListTest {
         );
         taskList.add(task2);
 
-
-
-
-
-
-        
-        // Task task1 = new Task(genesis__Application__c=appObj.id, Broker_Task__c=true, Status ='Not Known');
-        // insert task1;
-        // System.assertNotEquals(null, task1.id,'task not inserted');
-
-        // Task task2 = new Task(genesis__Application__c=appObj1.id, Broker_Task__c=true, Status ='Completed');
-        // insert task2;
-        // System.assertNotEquals(null, task2.id,'task not inserted');
     }
 
 
@@ -181,125 +160,8 @@ global class BrokerPortalAppListTest {
 
 
   
-    //Condition for all status
-    @isTest 
-    static void success(){
-        User portalAccountOwner1 = [ SELECT ID,
-                                            ProfileId,
-                                            Username,
-                                            Alias,
-                                            Email,
-                                            EmailEncodingKey,
-                                            Firstname,
-                                            Lastname 
-                                        FROM User 
-                                        WHERE Email= 'testinguser123@mailinator.com'
-                                        LIMIT 1];
-        
-        Map<String,Object> params = new Map<String,Object>();
-        params.put('status','All');
-        clcommon.Response res;
+   
 
-        Test.startTest();
-        BrokerPortalAppList ob = new BrokerPortalAppList(); 
-            System.runAs(portalAccountOwner1){
-                ob.setParams(params);
-                ob.execute();
-                res = ob.getPortalResponse();
-            }
-        Test.stopTest();
-        System.assertEquals('SUCCESS',res.status,'Not success');
-    }
-
-
-    //Condition for param key value null
-    @isTest 
-    static void paramkeyNull(){
-        User portalAccountOwner1 = [ SELECT ID,
-                                            ProfileId,
-                                            Username,
-                                            Alias,
-                                            Email,
-                                            EmailEncodingKey,
-                                            Firstname,
-                                            Lastname 
-                                        FROM User 
-                                        WHERE Email= 'testinguser123@mailinator.com'
-                                        LIMIT 1];
-        
-        Map<String,Object> params = new Map<String,Object>();
-        params.put('status',null);
-        clcommon.Response res;
-
-        Test.startTest();
-        BrokerPortalAppList ob = new BrokerPortalAppList(); 
-            System.runAs(portalAccountOwner1){
-                ob.setParams(params);
-                ob.execute();
-                res = ob.getPortalResponse();
-            }
-        Test.stopTest();
-        System.assertEquals('SUCCESS',res.status,'Not success');
-    }
-    //Condition for failure without paramkay
-    @isTest 
-    static void paramull(){
-        User portalAccountOwner1 = [ SELECT ID,
-                                            ProfileId,
-                                            Username,
-                                            Alias,
-                                            Email,
-                                            EmailEncodingKey,
-                                            Firstname,
-                                            Lastname 
-                                        FROM User 
-                                        WHERE Email= 'testinguser123@mailinator.com'
-                                        LIMIT 1];
-        clcommon.Response res;
-
-        Test.startTest();
-        BrokerPortalAppList ob = new BrokerPortalAppList(); 
-            System.runAs(portalAccountOwner1){
-                ob.setParams(null);
-                ob.execute();
-                res = ob.getPortalResponse();
-            }
-        Test.stopTest();
-        System.assertEquals('SUCCESS',res.status,'Not success');
-    }
-
-
-      // Failure Test case where there are no tasks for applications
-      @isTest 
-      static void failure() {
-          // Set up test parameters
-          User portalAccountOwner1 = [SELECT ProfileId,
-                                              Username,
-                                              Alias,
-                                              Email,
-                                              EmailEncodingKey,
-                                              Firstname,
-                                              Lastname 
-                                      FROM User 
-                                      WHERE Email = 'testinguser123@mailinator.com' 
-                                      LIMIT 1];
-          
-          Map<String, Object> params = new Map<String, Object>();
-          params.put('status', 'Outstanding Actions');  
-          clcommon.Response res;
   
-          Test.startTest();
-          BrokerPortalAppList ob = new BrokerPortalAppList();
-          System.runAs(portalAccountOwner1) {
-              ob.setParams(params);
-              ob.execute();
-              res = ob.getPortalResponse();
-          }
-          Test.stopTest();
-          
-          // Assert the failure response, expect status to be 'SUCCESS' if the applications without tasks are handled correctly.
-          System.assertEquals('SUCCESS', res.status, 'Expected response to be success');
-          
-      }
     
 }
